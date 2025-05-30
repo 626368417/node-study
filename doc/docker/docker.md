@@ -435,6 +435,10 @@ docker image inspect centos
 | cp [containerId]     | 从正在运行的 Docker 容器里面，将文件拷贝到本机               | docker container cp f6a53629488b:/root/root.txt .            |                                                     |
 | commit [containerId] | 根据一个现有容器创建一个新的镜像                             | docker commit -a "zhufeng" -m "mynginx" a404c6c174a2 mynginx:v1 |                                                     |
 
+https://cloud.tencent.com.cn/developer/article/2236303
+
+<img src="https://developer.qcloudimg.com/http-save/yehe-7144964/0a5ac6d600d74c4d3450123a84732388.jpg" alt="1748328577033" />
+
 ### 1. 容器创建 – docker create
 
 - **作用**：利用镜像创建出一个Created 状态的待启动容器
@@ -654,3 +658,45 @@ docker unpause  <container_name_or_id>
   ```
 
   
+
+###  10 .容器日志信息 – docker logs
+
+- **作用**：查看容器的日志信息
+- **命令格式**：docker logs [OPTIONS] CONTAINER
+
+- **命令参数（OPTIONS）**：
+  -  --details              显示日志的额外信息
+  - -f, --follow          动态跟踪显示日志信息
+  -  --since string    只显示某事时间节点之后的
+  - -t, --timestamps 显示timestamps时间
+  - --until string     只显示某事时间节点之前的
+- 注意： 容器日志中记录的是容器主进程的输出STDOUT\STDERR
+
+ 
+
+### 11.  容器连接 – docker attach
+
+- **作用**：将当前终端的STDIN、STDOUT、STDERR绑定到正在运行的容器的主进程上实现连接
+- **命令格式**：docker attach [OPTIONS] CONTAINER
+
+- **命令参数（OPTIONS）**：
+  - --no-stdin             	不绑定STDIN
+
+```bash
+# 基本语法
+docker attach <container_name_or_id>
+# 1. 连接到标准输入输出：连接后，你会看到容器内正在运行的应用程序的输出，并且你可以通过输入来与容器进行交互（如果容器内有交互式命令）
+# 2. 退出连接：如果你希望退出容器的连接，你可以按 Ctrl + C 或 Ctrl + P 然后 Ctrl + Q，以便返回到主机终端，但不会停止容器
+```
+
+### 13. 容器中执行新命令 – docker exec
+
+- **作用**：在容器中运行一个命令
+- **命令格式**：docker exec [OPTIONS] CONTAINER COMMAND [ARG...]
+
+- **命令参数（OPTIONS）**：
+  - -d, --detach             	后台运行命令
+  - -i, --interactive               即使没连接容器，也将当前的STDIN绑定上
+  - -t, --tty                             即使没连接容器，也将当前的STDIN绑定上
+  - -w, --workdir string        指定在容器中的工作目录
+  - -e, --env list                   设置容器中运行时的环境变量
